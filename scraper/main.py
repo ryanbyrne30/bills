@@ -18,7 +18,7 @@ def parse_data(data):
     items = data['items']
     objects = []
     for item in items:
-        title = item['title']
+        title = '-'.join(item['title'].split('-')[1:]).strip()
         description = item['description']
         url = item['link']
         image = None
@@ -30,13 +30,14 @@ def parse_data(data):
             date = datetime(timestamp.tm_year, timestamp.tm_mon, timestamp.tm_mday, timestamp.tm_hour, timestamp.tm_min)
             date = int(date.timestamp() / 100)
 
-        objects.append(
-            Bill(title=title[:255], description=description, url=url, image=image, published=date)
-        )
+        print(description)
+        # objects.append(
+        #     Bill(title=title[:255], description=description, url=url, image=image, published=date)
+        # )
 
-    with Session(engine) as session:
-        session.add_all(objects)
-        session.commit()
+    # with Session(engine) as session:
+    #     session.add_all(objects)
+    #     session.commit()
 
 if __name__ == "__main__":
     data = feedparser.parse(URL)

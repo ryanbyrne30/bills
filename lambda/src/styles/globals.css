@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.rich-text a {
+  @apply cursor-pointer rounded-lg text-blue-600 underline;
+}
+
+.rich-text {
+  @apply leading-6;
+}
+
+.rich-text > h2 {
+  @apply mb-1 mt-4 text-lg font-medium uppercase;
+}
