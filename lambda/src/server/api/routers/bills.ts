@@ -10,6 +10,38 @@ export const billsRouter = createTRPCRouter({
       orderBy: {
         published: "desc",
       },
+      include: {
+        likes: true,
+        dislikes: true,
+      },
     });
   }),
+  like: publicProcedure
+    .input(
+      z.object({
+        billId: z.number(),
+      })
+    )
+    .mutation(
+      async ({ input }) =>
+        await prisma.like.create({
+          data: {
+            billId: input.billId,
+          },
+        })
+    ),
+  dislike: publicProcedure
+    .input(
+      z.object({
+        billId: z.number(),
+      })
+    )
+    .mutation(
+      async ({ input }) =>
+        await prisma.dislike.create({
+          data: {
+            billId: input.billId,
+          },
+        })
+    ),
 });

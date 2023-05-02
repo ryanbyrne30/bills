@@ -28,16 +28,15 @@ def parse_data(data):
         if 'published_parsed' in item:
             timestamp = item['published_parsed']
             date = datetime(timestamp.tm_year, timestamp.tm_mon, timestamp.tm_mday, timestamp.tm_hour, timestamp.tm_min)
-            date = int(date.timestamp() / 100)
+            date = int(date.timestamp())
 
-        print(description)
-        # objects.append(
-        #     Bill(title=title[:255], description=description, url=url, image=image, published=date)
-        # )
+        objects.append(
+            Bill(title=title[:255], description=description, url=url, image=image, published=date)
+        )
 
-    # with Session(engine) as session:
-    #     session.add_all(objects)
-    #     session.commit()
+    with Session(engine) as session:
+        session.add_all(objects)
+        session.commit()
 
 if __name__ == "__main__":
     data = feedparser.parse(URL)
